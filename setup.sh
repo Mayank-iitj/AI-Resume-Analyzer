@@ -12,4 +12,7 @@ python3 -c "import nltk; nltk.download('averaged_perceptron_tagger', download_di
 # Download spaCy model (using spaCy 3.x model)
 python3 -m spacy download en_core_web_sm
 
+# Fix pyresparser config issue
+python3 fix_pyresparser.py
+
 echo "Setup complete!"

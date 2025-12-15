@@ -413,7 +413,12 @@ def run():
             show_pdf(str(save_image_path))
 
             ### parsing and extracting whole resume 
-            resume_data = ResumeParser(str(save_image_path)).get_extracted_data()
+            try:
+                resume_data = ResumeParser(str(save_image_path)).get_extracted_data()
+            except Exception as e:
+                st.error(f"⚠️ Resume parsing error: {e}")
+                st.info("💡 Tip: The resume parser encountered an issue. Please ensure your resume is in a standard PDF format.")
+                resume_data = None
             if resume_data:
                 
                 ## Get the whole resume data into resume_text
