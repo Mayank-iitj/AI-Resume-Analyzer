@@ -40,7 +40,6 @@ from pdfminer3.pdfinterp import PDFResourceManager
 from pdfminer3.pdfinterp import PDFPageInterpreter
 from pdfminer3.converter import TextConverter
 from streamlit_tags import st_tags
-from PIL import Image
 # pre stored data for prediction purposes
 from Courses import ds_course,web_course,android_course,ios_course,uiux_course,resume_videos,interview_videos
 
@@ -162,13 +161,103 @@ def insertf_data(feed_name,feed_email,feed_score,comments,Timestamp):
         return False
 
 
-###### Setting Page Configuration (favicon, Logo, Title) ######
+###### Setting Page Configuration ######
 
 
 st.set_page_config(
-   page_title="AI Resume Analyzer",
-   page_icon=str(APP_DIR / 'Logo/recommend.png'),
+   page_title="🎯 AI Resume Analyzer",
+   page_icon="🎯",
+   layout="wide",
+   initial_sidebar_state="expanded"
 )
+
+
+###### Custom CSS Styling ######
+
+
+def load_custom_css():
+    st.markdown("""
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+    
+    * {
+        font-family: 'Inter', sans-serif;
+    }
+    
+    .main-header {
+        background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
+        padding: 2.5rem;
+        border-radius: 1rem;
+        margin-bottom: 2rem;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+    }
+    
+    .main-header h1 {
+        color: white;
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin: 0;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    }
+    
+    .main-header p {
+        color: rgba(255,255,255,0.95);
+        font-size: 1.1rem;
+        margin-top: 0.5rem;
+    }
+    
+    [data-testid="stSidebar"] {
+        background: linear-gradient(180deg, #f9fafb 0%, #f3f4f6 100%);
+    }
+    
+    .stButton>button {
+        background: linear-gradient(135deg, #6366f1, #8b5cf6);
+        color: white;
+        border: none;
+        border-radius: 0.5rem;
+        padding: 0.75rem 2rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+    
+    .stButton>button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
+    }
+    
+    .stProgress > div > div > div > div {
+        background: linear-gradient(90deg, #6366f1, #ec4899);
+    }
+    
+    [data-testid="stFileUploader"] {
+        border: 2px dashed #6366f1;
+        border-radius: 0.75rem;
+        padding: 2rem;
+        background: #f9fafb;
+    }
+    
+    .sidebar-credit {
+        text-align: center;
+        padding: 1rem;
+        margin-top: 2rem;
+        border-top: 2px solid #e5e7eb;
+    }
+    
+    .sidebar-credit p {
+        margin: 0.25rem 0;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
+
+def display_header():
+    st.markdown("""
+    <div class="main-header">
+        <h1>🎯 AI Resume Analyzer</h1>
+        <p>Smart Resume Analysis & Career Recommendations</p>
+    </div>
+    """, unsafe_allow_html=True)
 
 
 ###### Main function run() ######
@@ -176,14 +265,24 @@ st.set_page_config(
 
 def run():
     
-    # (Logo, Heading, Sidebar etc)
-    img = Image.open(str(APP_DIR / 'Logo/RESUM.png'))
-    st.image(img)
-    st.sidebar.markdown("# Choose Something...")
-    activities = ["User", "Feedback", "About", "Admin"]
-    choice = st.sidebar.selectbox("Choose among the given options:", activities)
-    link = '<b>Built with 🤍 by MAYANK SHARMA</b>' 
-    st.sidebar.markdown(link, unsafe_allow_html=True)
+    # Load custom CSS
+    load_custom_css()
+    
+    # Display modern header
+    display_header()
+    
+    # Sidebar navigation with emoji icons
+    st.sidebar.markdown("### 🎯 Navigation")
+    activities = ["👤 User", "💬 Feedback", "ℹ️ About", "👨‍💼 Admin"]
+    choice = st.sidebar.selectbox("Choose an option:", activities)
+    # Credits in sidebar
+    st.sidebar.markdown("---")
+    st.sidebar.markdown("""
+    <div class="sidebar-credit">
+        <p style='color: #6366f1; font-weight: 600; font-size: 0.9rem;'>Built with 🤍 by</p>
+        <p style='font-size: 1.1rem; font-weight: 700; color: #1f2937;'>MAYANK SHARMA</p>
+    </div>
+    """, unsafe_allow_html=True)
     st.sidebar.markdown('''
         <!-- site visitors -->
 
@@ -256,6 +355,9 @@ def run():
 
 
     ###### CODE FOR CLIENT SIDE (USER) ######
+    
+    # Extract choice without emoji
+    choice = choice.split(' ', 1)[1] if ' ' in choice else choice
 
     if choice == 'User':
         
