@@ -1,3 +1,8 @@
+# Environment Variables
+.env
+*.env
+!.env.example
+
 # Python
 __pycache__/
 *.py[cod]
@@ -19,6 +24,7 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+MANIFEST
 
 # Virtual Environment
 venv/
@@ -33,36 +39,23 @@ env/
 *.swp
 *.swo
 *~
-
-# Environment Variables
-.env
-.env.local
-.env.*.local
-
-# Database
-*.db
-*.sqlite
-*.sqlite3
+.DS_Store
 
 # Uploaded Files
 App/Uploaded_Resumes/*.pdf
+App/Uploaded_Resumes/*.docx
 !App/Uploaded_Resumes/.gitkeep
 
 # Logs
 *.log
+logs/
 
 # OS
-.DS_Store
 Thumbs.db
+.DS_Store
+
+# Railway
+.railway/
 
 # Streamlit
 .streamlit/secrets.toml
-
-# Jupyter Notebook
-.ipynb_checkpoints
-
-# pytest
-.pytest_cache/
-
-# mypy
-.mypy_cache/
